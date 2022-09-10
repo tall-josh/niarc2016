@@ -8,7 +8,7 @@ I was only a part of this amazing team. None of us could have built this robot a
 
 1. [Ben Sullivan](https://www.linkedin.com/in/bensullivanlinkedin/) Team Captain, Mechanical design
 2. [Kyle Harris](https://www.linkedin.com/in/kyle-harris-81733b103/) Hardware/embedded, Robot control
-3. [Chris Write](https://www.linkedin.com/in/chris-wright-87a19a93/) Mechanical design and manufacture
+3. [Chris Wright](https://www.linkedin.com/in/chris-wright-87a19a93/) Mechanical design and manufacture
 4. [Jack Fuge](https://www.linkedin.com/in/jack-fuge-32555b91/) Hardware/embedded and manufacture
 5. [Me, Josh Patterson](https://www.linkedin.com/in/joshua-patterson-470314116/) Robot behaviour, Robot control
 6. [Jinchuan Zheng](https://www.linkedin.com/in/jinchuan-zheng-b40759b4/) Academic Supervisor
@@ -49,7 +49,7 @@ We decided on outrunner brushless motors, specifically Turnigy Multistar 22Pole 
 
 ![drive-train](resources/drive-train-closeup.jpg)
 
-We designed custom motor driver PCBs (see above) and had them manufactured however, I can take no credit for this that was all [Jack](https://www.linkedin.com/in/jack-fuge-32555b91/) and [Kyle](https://www.linkedin.com/in/kyle-harris-81733b103/). If it wasn't for those guys I'd still be running Windows :-p 
+To drive these motors, we used a fork of the [VESC project](https://vedder.se/2015/01/vesc-open-source-esc/), when it was in its infancy. This meant that we needed to hand assemble a 4-layer SMT PCB. The benefit of this is it gave us low speed, high torque control of cheap off the shelf hobby BLDC motors. To further improve on this, it allowed us to fit encoders to the motor shafts, to further improve the BLDC drive coupling, as well as gain odometry data from the wheels. However, I can take no credit for this; that was all [Jack](https://www.linkedin.com/in/jack-fuge-32555b91/) and [Kyle](https://www.linkedin.com/in/kyle-harris-81733b103/). If it wasn't for those guys I'd still be running Windows :-p 
 
 ## Power
 
@@ -65,7 +65,7 @@ The shelf the blocks would be delivered to was only deep enough for one block. W
 
 ![crap](resources/crap-shelf.png)
 
-In the end (_after a long night of pizza and energy drink_) we landed on an array of 3 shoots that could deliver 2 blocks each. The shoots could eject 1 block forward and 1 backwards with an indexing pusher driven by a central rack and pinion. Additionally, each shoot could be per-loaded and snapped into place with magnets embedding the chassis for fast and simple access to the electronics housed below in the chassis.
+In the end (_after a long night of pizza and energy drink_) we landed on an array of 3 chutes that could deliver 2 blocks each. The chutes could eject 1 block forward and 1 backwards with an indexing pusher driven by a central rack and pinion. Additionally, each chute could be per-loaded and snapped into place with magnets embedding the chassis for fast and simple access to the electronics housed below in the chassis.
  
 ![chute-top-sketch](resources/chute-top-sketch.png)
 ![chute-iso-sketch](resources/chute-isometric-sketch.png)
@@ -127,7 +127,7 @@ Linked are a series of videos of the competition but nothing can capture the atm
 ![UNSW](resources/unsw-all-night.jpg)
 ![all-the-bots](resources/all-the-bots.jpg)
 
-At the end of the practice day something went wrong that knocked out our LIDAR and the motor control started glitching about 1 in 10 times causing the robot to skid, messing up its localization. The University New South Wales team allowed us to use their practice arena through the night to try and debug the robot. In the end we had to totally drop the LIDAR and solely rely on encoders for localization. We realised we could reset the Y position of the robot each time the bump switches were triggered when dropping blocks in the wards. Unfortunately there was no way to reset our X position. On comp day we made it to the finals but came 2nd when the glitch occurs causing us to plough through the wall.
+At the end of the practice day something went wrong that knocked out our LIDAR and the motor control started glitching about 1 in 10 times causing the robot to skid, messing up its localization. The University of New South Wales team very graciously allowed us to use their practice arena throughout the night to try and debug the robot. In the end we had to totally drop the LIDAR and solely rely on encoders for localization. We realised we could reset the Y position of the robot each time the bump switches were triggered when dropping blocks in the wards. Unfortunately there was no way to reset our X position. On comp day we made it to the finals but came 2nd when the glitch occurs causing us to plough through the wall.
 
  - [YouTube Video Qualifiers X](https://youtu.be/yy397YsTcxk)
  - [YouTube Video Semi Finals](https://youtu.be/MT7YD12SHgA)
