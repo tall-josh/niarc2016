@@ -15,7 +15,7 @@ I was only a part of this amazing team. None of us could have built this robot a
 
 ## Overview
 
-I was on the university robotics team for 3 years. The following refers to the second year we competed in the National Instruments Autonomous Robotics Competition NIARC. I was in charge of the robot behaviour/control with a minor role in pat design. The following describes the robots development as we progress through the milestones and finally to place 2nd in Australia in the live competition held in Sydney. Below is an image of the arena layout.
+I was on the university robotics team for 3 years. The following refers to the second year we competed in the National Instruments Autonomous Robotics Competition NIARC. I was in charge of the robot behaviour/control with a minor role in machanical design. The following describes the robots development as we progressed through the milestones, finally to place 2nd in Australia in the live competition held in Sydney. Below is an image of the arena layout.
 
 ![niarc-arena](resources/arena.png)
 
