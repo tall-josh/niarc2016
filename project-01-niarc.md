@@ -49,7 +49,7 @@ We decided on outrunner brushless motors, specifically Turnigy Multistar 22Pole 
 
 ![drive-train](resources/drive-train-closeup.jpg)
 
-To drive these motors, we used a fork of the [VESC project](https://vedder.se/2015/01/vesc-open-source-esc/), when it was in its infancy. This meant that we needed to hand assemble a 4-layer SMT PCB. The benefit of this is it gave us low speed, high torque control of cheap off the shelf hobby BLDC motors. To further improve on this, it allowed us to fit encoders to the motor shafts, to further improve the BLDC drive coupling, as well as gain odometry data from the wheels. However, I can take no credit for this; that was all [Jack](https://www.linkedin.com/in/jack-fuge-32555b91/) and [Kyle](https://www.linkedin.com/in/kyle-harris-81733b103/). If it wasn't for those guys I'd still be running Windows :-p 
+To drive these motors, we used a fork of the [VESC project](https://vedder.se/2015/01/vesc-open-source-esc/), when it was in its infancy. This meant that we needed to hand assemble a 4-layer SMT PCB. The benefit of this is it gave us low speed, high torque control of cheap off-the-shelf hobby BLDC motors. This allowed us to fit encoders to the motor shafts, to further improve the BLDC drive coupling, as well as gain odometry data from the wheels. However, I can take no credit for this; that was all [Jack](https://www.linkedin.com/in/jack-fuge-32555b91/) and [Kyle](https://www.linkedin.com/in/kyle-harris-81733b103/). If it wasn't for those guys I'd still be running Windows :-p 
 
 ## Power
 
