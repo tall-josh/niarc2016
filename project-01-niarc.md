@@ -61,16 +61,16 @@ Up to 6 medicine packages were to be delivered in a given run. After some experi
 
 ![block](resources/block.png)
 
-The shelf the blocks would be delivered to was only deep enough for one block. We briefly considered an arm but it would be too complicated and error prone and slow. We could not fit 6 blocks side-by-side as this would make the robot too wide to find safely into the wards so some sort of retracting shelf that overhung  was not an option.
+The shelf the blocks would be delivered to was only deep enough for one block. We briefly considered an arm but decided it would be too complicated, error prone and slow. We could not fit 6 blocks side-by-side as this would make the robot too wide to fit safely into the wards so some sort of retracting shelf that overhung delivery location was not an option.
 
 ![crap](resources/crap-shelf.png)
 
-In the end (_after a long night of pizza and energy drink_) we landed on an array of 3 chutes that could deliver 2 blocks each. The chutes could eject 1 block forward and 1 backwards with an indexing pusher driven by a central rack and pinion. Additionally, each chute could be per-loaded and snapped into place with magnets embedding the chassis for fast and simple access to the electronics housed below in the chassis.
+In the end (_after a long night of pizza and energy drinks_) we landed on an array of 3 chutes that could deliver 2 blocks each. The chutes could eject 1 block forward and 1 backwards with an indexing pusher driven by a central rack and pinion. Additionally, each chute could be pre-loaded and snapped into place with magnets embedding the chassis for fast and simple access to the electronics housed below.
  
 ![chute-top-sketch](resources/chute-top-sketch.png)
 ![chute-iso-sketch](resources/chute-isometric-sketch.png)
 
-The rack and pinion were driven by small brushed dc motors from a kids model gearbox toy. We initially thought of using switches to signal when the blocks had left the chute, but in the end simply driving the motors for a set time consistently ejected the blocks. Brushes were also installed to gently push the blocks down on the shelf as we reversed out of the ward.
+The rack and pinion were driven by small brushed DC motors from a kids model gearbox toy. We initially thought of using switches to signal when the blocks had left the chute, but in the end simply driving the motors for a set time consistently ejected the blocks. Brushes were also installed to gently push the blocks down on the shelf as we reversed out of the ward.
 
 ![chute-renders](resources/chutes-renders.png)
 ![chute-irl](resources/chute-irl.png)
@@ -79,24 +79,23 @@ The ability to eject blocks from front and back also meant we did not need to tu
 
 [YouTube video of chute indexing](https://youtu.be/bwKqD97XXXQ)
 
-To detect when to stop the robot and trigger the unloading procedure we fitted 2 bump switches on the front and back of the robot. These would also be used during the competition to reset the y position of the robot as we knew the exact y position of the robot when those switches were triggered.
-
+To detect when to stop the robot and trigger the unloading procedure, we fitted 2 bump switches on the front and back of the robot.
 
 ## Robotic Control
 
-There were 3 main components to the high level control of the robot. [go-to-goal](#go-to-goal), [localization](#localization) and [obstacle-avoidance](#obstical-avoidance). Each of these components came together to autonomously navigate the robot around the arena.w
+There were 3 main components to the high level control of the robot: [go to goal](#go-to-goal), [localization](#localization) and [obstacle-avoidance](#obstical-avoidance). Each of these components came together to autonomously navigate the robot around the arena.
 
 ### Go To Goal
 
-The go to goal behaviour was a simple PID loop parameterized on the angle between the robot heading and the programmed goal. LabVIEW does provide several PID functions, however I opted to script my own from scratch mainly because at this point I had very little experience with PID so I want to treat it as a learning exercise rather than just plugging some values into a function. At this point I was only really familiar with C++ C# and LabVIEW none of which I could get a good visual understanding of what was going on so I wrote a [PID excel spreadsheet](https://docs.google.com/spreadsheets/d/0B8qBMyILKQdoNWR4Snl3WWNvWjA/edit?usp=sharing&ouid=105737867544254444450&resourcekey=0-6Fhesqv9VxglXk0UkPqcew&rtpof=true&sd=true) to get a handle on it (these days I'd just use Python) 
+The go to goal behaviour was a simple PID loop parameterized on the angle between the robot heading and the programmed goal. LabVIEW does provide several PID functions, however I opted to script my own from scratch mainly because at this point I had very little experience with PID so I wanted to treat it as a learning exercise rather than just plugging some values into a function. At this point I was only really familiar with C++, C# and LabVIEW none of which I could use to easily get a good visual understanding of what was going on. Insead I wrote a [PID excel spreadsheet](https://docs.google.com/spreadsheets/d/0B8qBMyILKQdoNWR4Snl3WWNvWjA/edit?usp=sharing&ouid=105737867544254444450&resourcekey=0-6Fhesqv9VxglXk0UkPqcew&rtpof=true&sd=true) to get a handle on it (these days I'd just use Python). 
 
 ### Localization
 
-Localization was achieved by fusing data from 3 different sensors; Encoders (left/right), IMU and LIDAR. The encoder and IMU data were relatively straightforward. However, alone the location and heading could tend to drift. The LIDAR was fixed up-side-down under the robot's chassis so we could get it as low as possible to the ground in order to prevent the beams from overshooting the arena walls. However, this caused the LIDAR beams to sometimes hit the ground in-front of the robot, triggering a false positive obstacle detection. To mitigate this we had to make sure there was very little play between the skids and the ground. We experimented with a bunch of things including take-away ramen soup spoons. Finally we sources some small roller bearings to keep the skids in contact with the ground.
+Localization was achieved by fusing data from 3 different sensors: Encoders (left/right), IMU and LIDAR. The encoder and IMU data were relatively straightforward. However, with just these alone the location and heading could tend to drift, hence the addition of the LIDAR. The LIDAR was fixed up-side-down under the robot's chassis so we could get it as low as possible to the ground in order to prevent the beams from overshooting the arena walls. However, this caused the LIDAR beams to sometimes hit the ground in-front of the robot, triggering a false positive obstacle detection. To mitigate this we had to make sure there was very little play between the skids and the ground. We experimented with a bunch of things including take-away ramen soup spoons. Finally, we sourced small roller bearings to keep the skids in contact with the ground.
 
 ![lidar-and-skids](resources/lidar-and-skids.png)
 
-With reliable LIDAR data we could now compare the points the LIDAR was seeing to known walls in the arena and use iterative-closest-point (ICP) to estimate Δx, Δy, Δθ to correct any drift in the robot's location and heading. To calculate Δx, Δy, Δθ first each LIDAR point is matched to the closest known wall within a set threshold ~50mm (2'') all other points are discarded. With the remaining points we find the angle between the line of best fit for each group of points matched to a wall and the known wall location. This is our Δθ, we then rotate the LIDAR points by Δθ and compute the x and y translation between the line of best fit for each group of points matched to the wall and the wall location, this is our Δx, Δy. This signal can be noisy so we apply a scaling factor that is <1 before updating the robot's internal state.
+With reliable LIDAR data we could now compare the points the LIDAR was seeing to known walls in the arena and use iterative-closest-point (ICP) to estimate Δx, Δy, Δθ and correct any drift in the robot's location and heading. To calculate Δx, Δy, Δθ first each LIDAR point is matched to the closest known wall within a set threshold ~50mm (2'') - all other points are discarded. With the remaining points we find the angle between the line of best fit for each group of points matched to a wall and the known wall location - this is our Δθ. We then rotate the LIDAR points by Δθ and compute the x and y translation between the line of best fit for each group of points matched to the wall and the wall location - this is our Δx, Δy. This signal can be noisy so we applied a scaling factor that is <1 before updating the robot's internal state. The update frequency of the LIDAR was 10Hz, the ICP algorithm comfortably fit within this timeframe.
 
 ![icp](resources/icp.png)
 
@@ -117,7 +116,7 @@ For simple obstacle avoidance we used a Vector Field Histogram (VFH) to override
 
 See [Bill of Materials](https://docs.google.com/spreadsheets/d/1BNu4O4Z2-xrcN5LvTsnapARwNEMQqaJ9qOLK6T70Q-o/edit?usp=sharing)
 
-After first 3d printing all the parts to assure everything fit we had the parts machined out of billot aluminium. Also as a precaution we ordered enough parts for two full robots, we even had a spare LIDAR from the previous year.
+After first 3D printing all the parts to ensure everything fit we had the parts machined out of billot aluminium. Also as a precaution we ordered enough parts for two full robots, we even had a spare LIDAR from the previous year.
 
 ![solidworks-model](resources/final-assembly.png)
 ![render](resources/full-pretty-render.png)
@@ -125,15 +124,18 @@ After first 3d printing all the parts to assure everything fit we had the parts 
 
 ## The Competition
 
-Linked are a series of videos of the competition but nothing can capture the atmosphere of 100s of robotics nerds showing off their creations on the day. We set up a makeshift practice track out of McDonalds cup holders and suitcases and allowed any team to come and practice. Everyone was there to share knowledge and have fun.
+Linked are a series of videos of the competition but nothing can capture the atmosphere of hundreds of robotics nerds showcasing their creations on the day. We constructed a makeshift practice arena from McDonalds bags, coffee cup holders and suitcases and allowed any team to come and practice. Everyone was there to share knowledge and have fun.
 
 ![UNSW](resources/unsw-all-night.jpg)
 ![all-the-bots](resources/all-the-bots.jpg)
 
-At the end of the practice day something went wrong that knocked out our LIDAR and the motor control started glitching about 1 in 10 times causing the robot to skid, messing up its localization. The University of New South Wales team very graciously allowed us to use their practice arena throughout the night to try and debug the robot. In the end we had to totally drop the LIDAR and solely rely on encoders for localization. We realised we could reset the Y position of the robot each time the bump switches were triggered when dropping blocks in the wards. Unfortunately there was no way to reset our X position. On comp day we made it to the finals but came 2nd when the glitch occurs causing us to plough through the wall.
+At the end of the practice day something went wrong that knocked out our LIDAR and the motor control started glitching about 1 in 10 times causing the robot to skid, messing up its localization. The University of New South Wales team very graciously allowed us to use their practice arena throughout the night to try and debug the robot. In the end we had to totally drop the LIDAR and solely rely on encoders for localization. We realised we could reset the Y position of the robot each time the bump switches were triggered when dropping blocks in the wards. Unfortunately there was no way to reset our X position. On comp day we made it to the finals but came 2nd when the glitch occurred causing us to plough through the wall.
 
  - [YouTube Video Qualifiers X](https://youtu.be/yy397YsTcxk)
  - [YouTube Video Semi Finals](https://youtu.be/MT7YD12SHgA)
  - [YouTube Video Finals](https://youtu.be/RKG_JiI3z4Q)
 
 
+## Final Thoughts
+
+Second place is always bittersweet (especially when you also placed second the year before). However competing in NIARC was an amazing and inspiring experience. The sportsmanship and knowledge sharing between teams was unforgetable. The experience solidified my passion for robotics and in no small part put me on a trajectory that would lead me to a summer research scholarship with the CSIRO (my first hands on experience with machine learning). That oppurtunity then lead to me take a machine learning workshop at [Silverpond](https://www.highlighter.ai/), which encouraged me to apply for, and be offered, an internship at Silverpond. This internship became a job offer and thus my career as a machine learning engineer began. Now, 6 years after the competition I am writing this summary, even more passionate about robotics and machine learning than I was at the very begining of my journey into this field of expertise. Reflecting on this project and all that it has lead to, I find myself excited about future challenges and lessons to come. 
