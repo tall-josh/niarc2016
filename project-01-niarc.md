@@ -117,8 +117,11 @@ For simple obstacle avoidance we used a Vector Field Histogram (VFH) to override
 
 See [Bill of Materials](https://docs.google.com/spreadsheets/d/1BNu4O4Z2-xrcN5LvTsnapARwNEMQqaJ9qOLK6T70Q-o/edit?usp=sharing)
 
+After first 3d printing all the parts to assure everything fit we had the parts machined out of billot aluminium. Also as a precaution we ordered enough parts for two full robots, we even had a spare LIDAR from the previous year.
+
 ![solidworks-model](resources/final-assembly.png)
 ![render](resources/full-pretty-render.png)
+![twin-robots](resources/twin-robots.png)
 
 ## The Competition
 
