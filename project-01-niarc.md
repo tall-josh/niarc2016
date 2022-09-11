@@ -4,7 +4,7 @@
 
 ## Acknowledgements
 
-I was only a part of this amazing team. None of us could have built this robot alone. As such, even though I'm writing this as part of a job application I need to acknowledge these guys and the amazing work they did before, during and after the competition.
+I was only a part of this amazing team. None of us could have built this robot alone. As such, even though I'm writing this as part of a job application I need to acknowledge these guys and the amazing work they did before, during and after the competition. **Honestly, you shoud give all these guys a job :-)** 
 
 1. [Ben Sullivan](https://www.linkedin.com/in/bensullivanlinkedin/) Team Captain, Mechanical design
 2. [Kyle Harris](https://www.linkedin.com/in/kyle-harris-81733b103/) Hardware/embedded, Robot control
