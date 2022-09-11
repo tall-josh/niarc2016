@@ -19,7 +19,7 @@ I was on the university robotics team for 3 years. The following refers to the s
 
 ![niarc-arena](resources/arena.png)
 
-The theme of the competition was hospital robots. The task was to take a payload of 1-6 medicine  (represented by foam blocks) from the start location to 1-7 different locations. The was placed at the starting point with the correct number of blocks to deliver. It then autonomously navigates to designated bays to deliver the medicine onto a 50mm (2’’) high shelf before navigating to the finishing location. Obstacles are put in various places within the arena _red box_ (though to be honest the obstacles were never actually put in the path of the robot, bit of a joke really, but if they were we would have been fine). Additionally there was a dynamic obstacle located near the emergency bay however, it was confined to a small portion of the arena _"danger zone"_ so provided you avoided that area you'd be fine. The full arena layout is shown below.
+The theme of the competition was hospital robots. The task was to take a payload of 1-6 medicine  (represented by foam blocks) from the start location to 1-7 different locations. The robot was placed at the starting point with the correct number of blocks to deliver. It then autonomously navigated to designated wards to deliver the medicine onto a 50mm (2’’) high shelf before navigating to the finishing location. Obstacles are put in various places within the arena _red box_ (though to be honest the obstacles were never actually put in the path of the robot, bit of a joke really, but if they were we would have been fine). Additionally there was a dynamic obstacle located near the emergency bay however, it was confined to a small portion of the arena _"danger zone"_ so provided you avoided that area you'd be fine.
 
 
 ## Design Considerations
@@ -38,12 +38,12 @@ The full competition documentation can be found [here](resources/niarc-comp-docs
 
 ## Drive Train
 
-Given the wall height is only 90mm and the shelf is less again. The robot needed to be low to the ground. So;
+Given the wall height is only 90mm (3.5'') and the shelf is less again the robot needed to be low to the ground. To ensure that:
 
-1. Medicine blocks could be delivered without dropping them too far. _See [Medicine Delivery](#medicine-delivery) for more detail_
+1. Medicine blocks could be delivered to the shelf without dropping them too far. _See [Medicine Delivery](#medicine-delivery) for more detail_
 2. The LIDAR beams do not overshoot the walls of the arena
 
-Given these constraints we decided pretty much out-of-the gates to use a differential drive skid steer setup to dive the robot. This kept us very low to the ground, made use very manoeuvrable so we could get in-and-out of the wards and made the steering controle super simple.
+Given these constraints we decided pretty much out-of-the gate to use a differential drive skid steer setup to drive the robot. This kept the robot very low to the ground and made it very maneuverable so that we could easily get in and out of the wards. The differential drive also simplified the steering controle.
 
 We decided on outrunner brushless motors, specifically Turnigy Multistar 22Pole Multi-Rotor due to their compact size and availability at the time. The motors are geared down 2-1 with spur gears with the whole assembly mounted under the robot.
 
